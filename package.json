@@ -2,7 +2,7 @@
   "name": "socialnetwork",
   "version": "1.0.0",
   "description": "This is a project that is a small social networking app using mongooseDB",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
