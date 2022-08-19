@@ -1,0 +1,23 @@
+{
+  "name": "socialnetwork",
+  "version": "1.0.0",
+  "description": "This is a project that is a small social networking app using mongooseDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lonxyboi22/socialNetwork.git"
+  },
+  "author": "Andrew Mac",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lonxyboi22/socialNetwork/issues"
+  },
+  "homepage": "https://github.com/Lonxyboi22/socialNetwork#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.5.2"
+  }
+}
