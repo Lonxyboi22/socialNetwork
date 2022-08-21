@@ -2,45 +2,60 @@ const { Schema, model, Types } = require('mongoose');
 
 const dateFormat = require('../utils/dateFormat');
 
-const ReplySchema = new Schema(
-    {
-      replyId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId()
-      },
-      replyBody: {
-        type: String
-      },
-      writtenBy: {
-        type: String
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-        get: createdAtVal => dateFormat(createdAtVal)
-      }
+const ReactionSchema = new Schema(
+  {
+    reactionId: {
+      // Mongoose's ObjectId data type
+      type: Schema.Types.ObjectId,
+      // Default value is set to a new ObjectId
+      default: () => new Types.ObjectId(),
     },
-    {
-      toJSON: {
-        getters: true
-      }
-    }
-  );
+
+    reactionBody: {
+      type: String,
+      required: true,
+      maxlength: 280,
+    },
+
+    username: {
+      type: String,
+      required: true,
+    },
+
+    createdAt: {
+      type: Date,
+      // Set default value to the current timestamp
+      default: Date.now,
+      // Use a getter method to format the timestamp on query
+      get: (timestamp) => dateFormat(timestamp),
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
+);
   
 
 const ThoughtSchema = new Schema({
-    writtenBy: {
-      type: String
-    },
     thoughtBody: {
-      type: String
+      type: String,
+      required: "Thought is required",
+      minlength: 1,
+      maxlength: 280,
     },
     createdAt: {
       type: Date,
       default: Date.now,
       get: createdVal => dateFormat(createdVal)
     },
-    replies: [ReplySchema]
+    username: {
+      type: String,
+      required: true
+    },
+    reactions: [ReactionSchema]
   },
   {
     toJSON: {
@@ -50,8 +65,8 @@ const ThoughtSchema = new Schema({
     id: false
   });
   
-  ThoughtSchema.virtual('replyCount').get(function() {
-    return this.replies.length;
+  ThoughtSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
   });
   
   const Thought = model('Thought', ThoughtSchema);
